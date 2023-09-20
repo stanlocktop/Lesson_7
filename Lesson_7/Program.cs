@@ -53,7 +53,6 @@ namespace Enum
         static double DoOperation(double oper1, double oper2, Operation operation)
         {
             double result;
-            Console.ForegroundColor = ConsoleColor.Magenta; // устанавливаем цвет
             switch (operation)
             {
                 case Operation.Add:
