@@ -1,5 +1,4 @@
 ﻿using System;
-
 namespace Enum
 {
     class Program
@@ -7,6 +6,7 @@ namespace Enum
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.Unicode;
+            Console.ForegroundColor = ConsoleColor.Yellow; // устанавливаем цвет
             double oper1, oper2, result;
             Operation operation;
             Console.Write("Введіть перший операнд: ");
@@ -21,8 +21,8 @@ namespace Enum
             operation = GetOperation();
             result = DoOperation(oper1, oper2, operation);
             Console.WriteLine("{0} {1} {2} = {3}", oper1, GetOperationSymbol(operation), oper2, result);
+            Console.ResetColor(); // сбрасываем в стандартный
         }
-
         static Operation GetOperation()
         {
             Operation operation;
@@ -53,6 +53,7 @@ namespace Enum
         static double DoOperation(double oper1, double oper2, Operation operation)
         {
             double result;
+            Console.ForegroundColor = ConsoleColor.Magenta; // устанавливаем цвет
             switch (operation)
             {
                 case Operation.Add:
@@ -72,7 +73,7 @@ namespace Enum
                     else
                     {
                         Console.WriteLine("Помилка: Ділення на нуль.");
-                        result = double.NaN; // Повертає "не число" у разі помилки.
+                        result = double.NaN; 
                     }
                     break;
                 default:
@@ -98,3 +99,15 @@ namespace Enum
         }
     }
 }
+//namespace Enum
+//{
+//    enum Operation
+//    {
+//        Add = 1,
+//        Subtract = 2,
+//        Multiply = 3,
+//        Divide = 4,
+//        None,
+//    }
+//}
+
