@@ -1,2 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+namespace Enum
+{
+    enum Operation
+    {
+        Add = 1,
+        Subtract = 2,
+        Multiply = 3,
+        Divide = 4,
+        None,
+    }
+}
