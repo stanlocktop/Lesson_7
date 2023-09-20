@@ -9,7 +9,6 @@ namespace Enum
             Console.OutputEncoding = System.Text.Encoding.Unicode;
             double oper1, oper2, result;
             Operation operation;
-
             Console.Write("Введіть перший операнд: ");
             oper1 = GetDoubleNumber();
             Console.Write("Введіть другий операнд: ");
@@ -20,7 +19,6 @@ namespace Enum
             Console.WriteLine("3 - Множення");
             Console.WriteLine("4 - Ділення");
             operation = GetOperation();
-
             result = DoOperation(oper1, oper2, operation);
             Console.WriteLine("{0} {1} {2} = {3}", oper1, GetOperationSymbol(operation), oper2, result);
         }
@@ -33,14 +31,13 @@ namespace Enum
                 string input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input))
                 {
-                    input = "5"; // Встановлюємо значення за замовчуванням на випадок пустого вводу.
+                    input = "5"; 
                 }
                 operation = (Operation)System.Enum.Parse(typeof(Operation), input);
             }
             while (operation < Operation.Add || operation > Operation.Divide || operation == Operation.None);
             return operation;
         }
-
         static double GetDoubleNumber()
         {
             double number;
@@ -53,7 +50,6 @@ namespace Enum
             while (!resParse);
             return number;
         }
-
         static double DoOperation(double oper1, double oper2, Operation operation)
         {
             double result;
@@ -69,7 +65,7 @@ namespace Enum
                     result = oper1 * oper2;
                     break;
                 case Operation.Divide:
-                    if (oper2 != 0) // Перевірка на ділення на нуль.
+                    if (oper2 != 0) 
                     {
                         result = oper1 / oper2;
                     }
@@ -84,10 +80,8 @@ namespace Enum
             }
             return result;
         }
-
         static string GetOperationSymbol(Operation operation)
         {
-            // Функція для отримання символу операції для виводу.
             switch (operation)
             {
                 case Operation.Add:
