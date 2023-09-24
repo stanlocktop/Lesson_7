@@ -1,4 +1,4 @@
-﻿namespace Enum
+﻿namespace Enum1
 {
     enum Operation
     {
