@@ -1,7 +1,6 @@
 ﻿using System;
-using Enum1;
 
-namespace Lesson_7
+namespace Enum1
 {
     class Program
     {
@@ -29,7 +28,7 @@ namespace Lesson_7
             }
 
             result = DoOperation(oper1, oper2, operation);
-            Console.WriteLine("{0} {1} {2} = {3}", oper1, Operation.GetOperationSymbol(operation), oper2, result);
+            Console.WriteLine("{0} {1} {2} = {3}", oper1, GetOperationSymbol(operation), oper2, result);
         }
 
         static bool TryGetOperation(out Operation operation)
@@ -82,6 +81,23 @@ namespace Lesson_7
                     throw new ArgumentException();
             }
             return result;
+        }
+
+        static string GetOperationSymbol(Operation operation)
+        {
+            switch (operation)
+            {
+                case Operation.Add:
+                    return "+";
+                case Operation.Subtract:
+                    return "-";
+                case Operation.Multiply:
+                    return "*";
+                case Operation.Divide:
+                    return "/";
+                default:
+                    throw new ArgumentException();
+            }
         }
     }
 }
