@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Enum
 {
     class Program
@@ -6,107 +7,70 @@ namespace Enum
         static void Main(string[] args)
         {
             Console.OutputEncoding = System.Text.Encoding.Unicode;
-            Console.ForegroundColor = ConsoleColor.Yellow; // устанавливаем цвет
             double oper1, oper2, result;
             Operation operation;
+
             Console.Write("Введіть перший операнд: ");
-            oper1 = GetDoubleNumber();
+            if (!TryGetDoubleNumber(out oper1))
+            {
+                Console.WriteLine("Помилка: Введено некоректне число.");
+                return;
+            }
+
             Console.Write("Введіть другий операнд: ");
-            oper2 = GetDoubleNumber();
+            if (!TryGetDoubleNumber(out oper2))
+            {
+                Console.WriteLine("Помилка: Введено некоректне число.");
+                return;
+            }
+
             Console.WriteLine("Введіть операцію: ");
             Console.WriteLine("1 - Додавання");
             Console.WriteLine("2 - Віднімання");
             Console.WriteLine("3 - Множення");
             Console.WriteLine("4 - Ділення");
-            operation = GetOperation();
+            if (!TryGetOperation(out operation))
+            {
+                Console.WriteLine("Помилка: Введено некоректну операцію.");
+                return;
+            }
+
             result = DoOperation(oper1, oper2, operation);
             Console.WriteLine("{0} {1} {2} = {3}", oper1, GetOperationSymbol(operation), oper2, result);
-            Console.ResetColor(); // сбрасываем в стандартный
         }
-        static Operation GetOperation()
+
+        static bool TryGetOperation(out Operation operation)
         {
-            Operation operation;
-            do
+            int operationNumber;
+            if (int.TryParse(Console.ReadLine(), out operationNumber))
             {
-                string input = Console.ReadLine();
-                if (string.IsNullOrEmpty(input))
-                {
-                    input = "5"; 
-                }
-                operation = (Operation)System.Enum.Parse(typeof(Operation), input);
+                operation = (Operation)operationNumber;
+                return operation >= Operation.Add && operation <= Operation.Divide;
             }
-            while (operation < Operation.Add || operation > Operation.Divide || operation == Operation.None);
-            return operation;
-        }
-        static double GetDoubleNumber()
-        {
-            double number;
-            bool resParse = false;
-            do
+            else
             {
-                string input = Console.ReadLine();
-                resParse = double.TryParse(input, out number);
-            }
-            while (!resParse);
-            return number;
-        }
-        static double DoOperation(double oper1, double oper2, Operation operation)
-        {
-            double result;
-            switch (operation)
-            {
-                case Operation.Add:
-                    result = oper1 + oper2;
-                    break;
-                case Operation.Subtract:
-                    result = oper1 - oper2;
-                    break;
-                case Operation.Multiply:
-                    result = oper1 * oper2;
-                    break;
-                case Operation.Divide:
-                    if (oper2 != 0) 
-                    {
-                        result = oper1 / oper2;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Помилка: Ділення на нуль.");
-                        result = double.NaN; 
-                    }
-                    break;
-                default:
-                    throw new ArgumentException("Невідома операція");
-            }
-            return result;
-        }
-        static string GetOperationSymbol(Operation operation)
-        {
-            switch (operation)
-            {
-                case Operation.Add:
-                    return "+";
-                case Operation.Subtract:
-                    return "-";
-                case Operation.Multiply:
-                    return "*";
-                case Operation.Divide:
-                    return "/";
-                default:
-                    return "";
+                operation = Operation.None;
+                return false;
             }
         }
+
+        static bool TryGetDoubleNumber(out double number)
+        {
+            return double.TryParse(Console.ReadLine(), out number);
+        }
+
+        // Решта коду без змін.
     }
 }
-//namespace Enum
-//{
-//    enum Operation
-//    {
-//        Add = 1,
-//        Subtract = 2,
-//        Multiply = 3,
-//        Divide = 4,
-//        None,
-//    }
-//}
 
+namespace Enum
+{
+    enum Operation
+    {
+        Add = 1,
+        Subtract = 2,
+        Multiply = 3,
+        Divide = 4,
+        None,
+    }
+}
