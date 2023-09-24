@@ -29,6 +29,7 @@ namespace Enum1
 
             result = DoOperation(oper1, oper2, operation);
             Console.WriteLine("{0} {1} {2} = {3}", oper1, GetOperationSymbol(operation), oper2, result);
+            Console.ReadKey();
         }
 
         static bool TryGetOperation(out Operation operation)
